@@ -72,6 +72,123 @@ plt.show()
 ```
 <img width="888" height="544" alt="82266bcd76e1bd9d3584bc0338300c95" src="https://github.com/user-attachments/assets/f1324fc6-9dda-40dc-88bc-557b2c8b6110" />
 
+### 4.2 Does Court Type (Indoor/Outdoor) Affect Match Length? (T-Test)
+
+```
+# keep only relevant columns
+ct = df[["Court", "Score", "Best of"]]
+ct = ct[ct["Best of"] == 3]
+
+# drop missing values
+ct = ct.dropna()
+
+# function to compute match length
+def compute_total_games(score_string):
+
+    # if score is not a string, reject it
+    if not isinstance(score_string, str):
+        return None
+
+    # remove leading/trailing spaces
+    score_string = score_string.strip()
+
+    total_games = 0
+
+    # split into sets
+    sets = score_string.split()
+
+    for set_score in sets:
+
+        # remove tiebreak info, like 7-6(5) -> 7-6
+        set_score = re.sub(r"\(.*?\)", "", set_score)
+
+        # only process things that look like x-y
+        if "-" not in set_score:
+            continue
+
+        parts = set_score.split("-")
+
+        # should have exactly 2 numbers
+        if len(parts) != 2:
+            continue
+
+        try:
+            games1 = int(parts[0])
+            games2 = int(parts[1])
+            total_games += games1 + games2
+        except ValueError:
+            return None
+
+    # if nothing valid was counted, reject row
+    if total_games == 0:
+        return None
+
+    return total_games
+
+ct["total_games"] = ct["Score"].apply(compute_total_games)
+
+ct = ct[ct["Court"].isin(["Indoor", "Outdoor"])]
+
+indoor = ct[ct["Court"] == "Indoor"]["total_games"]
+outdoor = ct[ct["Court"] == "Outdoor"]["total_games"]
+
+stat, p_value = ttest_ind(indoor, outdoor, equal_var=False)  # t-test
+
+print("t-statistic:", stat)
+print("p-value:", p_value)
+
+alpha = 0.05
+
+if p_value < alpha:
+    print("Reject H0: match length differs by court type")
+else:
+    print("Fail to reject H0: no significant difference")
+
+print(ct.groupby("Court")["total_games"].agg(["count", "mean", "std"]))
+
+plt.figure()
+ct.boxplot(column="total_games", by="Court")
+plt.title("Match Length (Total Games) by Court Type")
+plt.suptitle("")
+plt.xlabel("Court Type")
+plt.ylabel("Total Games")
+plt.show()
+```
+<img width="772" height="531" alt="4acf2a74432d38c950b3ef84e5e343f6" src="https://github.com/user-attachments/assets/a19d2c32-f242-4d71-adf0-67c79ad56cf0" />
+
+### 4.3 Are there outliers in the rankings of people who defeat top-10 players? In other words, what are the biggest upsets?
+```
+#filter to matches where top 10 players played and lost
+top_10_losses=valid[((valid['Rank_1']<=10)&(valid['Winner']==valid['Player_2']))|((valid['Rank_2']<= 10)&(valid['Winner']==valid['Player_1']))].copy()
+
+#compile list of rankings of the winners in such matches
+top_10_losses['Winner_Rank'] = top_10_losses.apply(lambda x: x['Rank_1'] if x['Winner'] == x['Player_1'] else x['Rank_2'],axis=1)
+
+#create quartile range
+Q1=top_10_losses['Winner_Rank'].quantile(0.25)
+Q3=top_10_losses['Winner_Rank'].quantile(0.75)
+IQR=Q3-Q1
+outlier_threshold=Q3+1.5*IQR
+
+#identify outliers
+outliers = top_10_losses[top_10_losses['Winner_Rank']>outlier_threshold]
+print(f"Statistically extreme outliers (Rank > {outlier_threshold:.0f}): {len(outliers)}")
+display(outliers)
+
+#indentifying the biggest outlier/upset
+biggest_outlier = outliers.loc[outliers['Winner_Rank'].idxmax()]
+display(biggest_outlier.to_frame().T)
+
+#Create box plot
+plt.figure(figsize=(12, 6))
+top_10_losses.boxplot(column='Winner_Rank',vert=False)
+plt.title("Outlier Analysis: Rankings of Players who Defeated a Top 10 Opponent", fontsize=14)
+plt.xlabel("ATP Rank of the Winner")
+plt.ylabel("Top 10 Losses")
+plt.show()
+```
+<img width="1219" height="624" alt="ace5dbc099069447e55685d49b2e0277" src="https://github.com/user-attachments/assets/2e19a3a8-e913-46df-b8db-e0b584a974ae" />
+
 ## 5. Primary Analysis
 
 ## 6. Visualizations
