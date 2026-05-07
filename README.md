@@ -357,6 +357,18 @@ def eval_model(name, model):
 for name, model in models.items():
     eval_model(name, model)
 ```
+**Test Data Analysis (Results).** We trained/evaluated models on **62,090** matches with valid odds. The upset rate was **0.3459** and an 80/20 stratified split preserved this rate in both train and test sets.
+
+As a baseline, always predicting “no upset” achieved **Accuracy = 0.6541** but **Balanced Accuracy = 0.5000** and **F1 = 0.0000**, since it never identifies any upsets (confusion matrix [[8123, 0], [4295, 0]]). This highlights why accuracy alone is not a good metric for this problem.
+
+**Logistic Regression** performed best overall for identifying upsets, with **ROC-AUC = 0.7186** and **PR-AUC = 0.5564**. At a 0.5 threshold it achieved **Precision = 0.5072**, **Recall = 0.6421**, and the highest **F1 = 0.5667** (confusion matrix [[5443, 2680], [1537, 2758]]). This model catches many upsets (high recall) but produces more false upset predictions.
+
+**Random Forest** achieved slightly higher accuracy (**0.6655**) but lower ranking performance (**ROC-AUC = 0.7064**, **PR-AUC = 0.5431**) and a slightly lower **F1 = 0.5440**. It is more conservative than Logistic Regression (lower recall), producing fewer predicted upsets overall (confusion matrix [[5786, 2337], [1817, 2478]]).
+
+**Gradient Boosting** achieved the highest **Accuracy = 0.6945** and the best **PR-AUC = 0.5580** with strong **Precision = 0.6018**, but it had much lower **Recall = 0.3448** and **F1 = 0.4384** (confusion matrix [[7143, 980], [2814, 1481]]). This indicates it predicts upsets less often (fewer false positives) but misses many true upsets.
+
+**Conclusion.** If the goal is to **detect upsets** (not just maximize accuracy), **Logistic Regression** provides the best balance of precision/recall and the strongest F1 score. If the goal is to make **fewer upset predictions with higher confidence**, **Gradient Boosting** is preferable due to its higher precision.
+
 ## 6. Visualizations
 
 ## 7. Conclusions
