@@ -1,5 +1,5 @@
 # Predicting Upsets in Professional Tennis Matches
-### Spring 2026 Data Science Project | Contributors: Alexander Cui, Alex Luo, Dhruv Das, Vincent DePasquale, Darek Yu, Vineth Mova
+### Spring 2026 Data Science Project | Contributors: Alexander Cui, Alex Luo, Dhruv Das, Vincent DePasquale, Darek Yu, Vineeth Mova
 
 ## 1. Contributions
 **A (Project idea).**  
@@ -304,6 +304,58 @@ Features: ['log_rank_diff', 'log_favored_rank', 'implied_prob_fav', 'round_num',
 ```
 
 ### 5.3 Model Training
+```python
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.metrics import (
+    accuracy_score, balanced_accuracy_score, precision_score, recall_score, f1_score,
+    roc_auc_score, average_precision_score, confusion_matrix
+)
+import numpy as np
+# Train-test split (stratified to preserve upset rate)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+print("Train upset rate:", round(y_train.mean(), 4), "Test upset rate:", round(y_test.mean(), 4))
+# Baseline: always predict no upset
+y_pred_base = np.zeros(len(y_test), dtype=int)
+print("\nBaseline (always predict no upset)")
+print("Accuracy:", round(accuracy_score(y_test, y_pred_base), 4))
+print("Balanced accuracy:", round(balanced_accuracy_score(y_test, y_pred_base), 4))
+print("F1:", round(f1_score(y_test, y_pred_base, zero_division=0), 4))
+print("Confusion matrix:\n", confusion_matrix(y_test, y_pred_base))
+models = {
+    "Logistic Regression": Pipeline([
+        ("scaler", StandardScaler(with_mean=False)),
+        ("clf", LogisticRegression(max_iter=2000, class_weight="balanced", random_state=42))
+    ]),
+    "Random Forest": RandomForestClassifier(
+        n_estimators=400,
+        min_samples_leaf=5,
+        class_weight="balanced",
+        random_state=42,
+        n_jobs=-1
+    ),
+    "Gradient Boosting": GradientBoostingClassifier(random_state=42)
+}
+def eval_model(name, model):
+    model.fit(X_train, y_train)
+    proba = model.predict_proba(X_test)[:, 1]
+    pred = (proba >= 0.5).astype(int)
+    print(f"\n{name}")
+    print("ROC-AUC:", round(roc_auc_score(y_test, proba), 4))
+    print("PR-AUC:", round(average_precision_score(y_test, proba), 4))
+    print("Accuracy:", round(accuracy_score(y_test, pred), 4))
+    print("Balanced accuracy:", round(balanced_accuracy_score(y_test, pred), 4))
+    print("Precision:", round(precision_score(y_test, pred, zero_division=0), 4))
+    print("Recall:", round(recall_score(y_test, pred, zero_division=0), 4))
+    print("F1:", round(f1_score(y_test, pred, zero_division=0), 4))
+    print("Confusion matrix:\n", confusion_matrix(y_test, pred))
+for name, model in models.items():
+    eval_model(name, model)
 ## 6. Visualizations
 
 ## 7. Conclusions
