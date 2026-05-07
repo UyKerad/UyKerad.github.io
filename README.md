@@ -51,13 +51,12 @@ Odd_1         float64
 Odd_2         float64
 Score          object
 dtype: object
-|index|Tournament|Date|Series|Court|Surface|Round|Best of|Player\_1|Player\_2|Winner|Rank\_1|Rank\_2|Pts\_1|Pts\_2|Odd\_1|Odd\_2|Score|
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-|0|Australian Hardcourt Championships|2000-01-03|International|Outdoor|Hard|1st Round|3|Dosedel S\.|Ljubicic I\.|Dosedel S\.|63|77|-1|-1|-1\.0|-1\.0|6-4 6-2|
-|1|Australian Hardcourt Championships|2000-01-03|International|Outdoor|Hard|1st Round|3|Clement A\.|Enqvist T\.|Enqvist T\.|56|5|-1|-1|-1\.0|-1\.0|3-6 3-6|
-|2|Australian Hardcourt Championships|2000-01-03|International|Outdoor|Hard|1st Round|3|Escude N\.|Baccanello P\.|Escude N\.|40|655|-1|-1|-1\.0|-1\.0|6-7 7-5 6-3|
-|3|Australian Hardcourt Championships|2000-01-03|International|Outdoor|Hard|1st Round|3|Knippschild J\.|Federer R\.|Federer R\.|87|65|-1|-1|-1\.0|-1\.0|1-6 4-6|
-|4|Australian Hardcourt Championships|2000-01-03|International|Outdoor|Hard|1st Round|3|Fromberg R\.|Woodbridge T\.|Fromberg R\.|81|198|-1|-1|-1\.0|-1\.0|7-6 5-7 6-4|
+index,Tournament,Date,Series,Court,Surface,Round,Best of,Player_1,Player_2,Winner,Rank_1,Rank_2,Pts_1,Pts_2,Odd_1,Odd_2,Score
+0,Australian Hardcourt Championships,2000-01-03,International,Outdoor,Hard,1st Round,3,Dosedel S.,Ljubicic I.,Dosedel S.,63,77,-1,-1,-1.0,-1.0,6-4 6-2
+1,Australian Hardcourt Championships,2000-01-03,International,Outdoor,Hard,1st Round,3,Clement A.,Enqvist T.,Enqvist T.,56,5,-1,-1,-1.0,-1.0,3-6 3-6
+2,Australian Hardcourt Championships,2000-01-03,International,Outdoor,Hard,1st Round,3,Escude N.,Baccanello P.,Escude N.,40,655,-1,-1,-1.0,-1.0,6-7 7-5 6-3
+3,Australian Hardcourt Championships,2000-01-03,International,Outdoor,Hard,1st Round,3,Knippschild J.,Federer R.,Federer R.,87,65,-1,-1,-1.0,-1.0,1-6 4-6
+4,Australian Hardcourt Championships,2000-01-03,International,Outdoor,Hard,1st Round,3,Fromberg R.,Woodbridge T.,Fromberg R.,81,198,-1,-1,-1.0,-1.0,7-6 5-7 6-4
 ```
 
 ```
