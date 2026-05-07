@@ -3,11 +3,13 @@
 
 ## 1. Contributions
 **A (Project idea).**  
+    - Final project idea on using Random Forest was brainstormed by Alexander Cui. Rest of the team agreed on the idea.   
 **B (Dataset Curation and Preprocessing).**  
+    - Dataset was found by Darek Yu. Rest of the team agreed on utilizing the dataset.  
 **C (Data Exploration and Summary Statistics).**     
     - First Data Exploration on Court Surface v.s. Upset Rate was done by Darek Yu.  
 **D (ML Algorithm Design/Development).**  
-    - Feature Engineering and the new columns generated was done by Darek Yu.
+    - Feature Engineering and the new columns generated was done by Darek Yu.  
 **E (ML Algorithm Training and Test Data Analysis).**    
 **F (Visualization, Result Analysis, Conclusion).**  
 **G (Final Tutorial Report Creation).**  
