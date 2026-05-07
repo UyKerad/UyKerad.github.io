@@ -73,9 +73,12 @@ valid['upset'] = (valid['p1_favored'] != valid['p1_wins']).astype(int)
 
 print(f"\nOverall upset rate: {valid['upset'].mean():.3f}  ({valid['upset'].sum():,} upsets out of {len(valid):,} matches)")
 print(f"\nClass balance (0 = expected result, 1 = upset):")
-print(valid['upset'].value_counts())```
+print(valid['upset'].value_counts())
+```
+
 ## 4. Exploratory Data Analysis
 ### 4.1 Does Court Surface Affect Upset Rate? (Chi-Squared Test)
+
 ```
 contingency = pd.crosstab(valid["Surface"], valid["upset"])
 
