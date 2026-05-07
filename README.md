@@ -60,8 +60,20 @@ index,Tournament,Date,Series,Court,Surface,Round,Best of,Player_1,Player_2,Winne
 ```
 
 ```
-PREPROCESSING GOES HERE
-```
+# Keep only rows where both players have valid (positive) rankings
+valid = df[(df['Rank_1'] > 0) & (df['Rank_2'] > 0)].copy()
+print(f"Rows with valid rankings: {len(valid)} / {len(df)} ({len(valid)/len(df)*100:.1f}%)")
+
+# Determine which player was favored (lower rank = better)
+valid['p1_wins']    = (valid['Winner'] == valid['Player_1'])
+valid['p1_favored'] = (valid['Rank_1'] < valid['Rank_2'])
+
+# An upset is when the lower-ranked (higher number) player wins
+valid['upset'] = (valid['p1_favored'] != valid['p1_wins']).astype(int)
+
+print(f"\nOverall upset rate: {valid['upset'].mean():.3f}  ({valid['upset'].sum():,} upsets out of {len(valid):,} matches)")
+print(f"\nClass balance (0 = expected result, 1 = upset):")
+print(valid['upset'].value_counts())```
 ## 4. Exploratory Data Analysis
 ### 4.1 Does Court Surface Affect Upset Rate? (Chi-Squared Test)
 ```
