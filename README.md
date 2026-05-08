@@ -1,5 +1,5 @@
 # Predicting Upsets in Professional Tennis Matches
-### Spring 2026 Data Science Project | Contributors: Alexander Cui, Alex Luo, Dhruv Das, Vincent DePasquale, Darek Yu, Vineth Mova
+### Spring 2026 Data Science Project | Contributors: Alexander Cui, Alex Luo, Dhruv Das, Vincent DePasquale, Darek Yu, Vineeth Movva
 
 ## 1. Contributions
 **A (Project idea).**  
@@ -11,6 +11,8 @@
 **D (ML Algorithm Design/Development).**  
     - Feature Engineering and the new columns generated was done by Darek Yu.  
 **E (ML Algorithm Training and Test Data Analysis).**    
+    - Model training, testing, and performance evaluation (Logistic Regression, Random Forest, Gradient Boosting) was done by Vineeth Movva.
+    
 **F (Visualization, Result Analysis, Conclusion).**  
 **G (Final Tutorial Report Creation).**  
 
@@ -304,6 +306,71 @@ Features: ['log_rank_diff', 'log_favored_rank', 'implied_prob_fav', 'round_num',
 ```
 
 ### 5.3 Model Training
+```python
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.metrics import (
+    accuracy_score, balanced_accuracy_score, precision_score, recall_score, f1_score,
+    roc_auc_score, average_precision_score, confusion_matrix
+)
+import numpy as np
+# Train-test split (stratified to preserve upset rate)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+print("Train upset rate:", round(y_train.mean(), 4), "Test upset rate:", round(y_test.mean(), 4))
+# Baseline: always predict no upset
+y_pred_base = np.zeros(len(y_test), dtype=int)
+print("\nBaseline (always predict no upset)")
+print("Accuracy:", round(accuracy_score(y_test, y_pred_base), 4))
+print("Balanced accuracy:", round(balanced_accuracy_score(y_test, y_pred_base), 4))
+print("F1:", round(f1_score(y_test, y_pred_base, zero_division=0), 4))
+print("Confusion matrix:\n", confusion_matrix(y_test, y_pred_base))
+models = {
+    "Logistic Regression": Pipeline([
+        ("scaler", StandardScaler(with_mean=False)),
+        ("clf", LogisticRegression(max_iter=2000, class_weight="balanced", random_state=42))
+    ]),
+    "Random Forest": RandomForestClassifier(
+        n_estimators=400,
+        min_samples_leaf=5,
+        class_weight="balanced",
+        random_state=42,
+        n_jobs=-1
+    ),
+    "Gradient Boosting": GradientBoostingClassifier(random_state=42)
+}
+def eval_model(name, model):
+    model.fit(X_train, y_train)
+    proba = model.predict_proba(X_test)[:, 1]
+    pred = (proba >= 0.5).astype(int)
+    print(f"\n{name}")
+    print("ROC-AUC:", round(roc_auc_score(y_test, proba), 4))
+    print("PR-AUC:", round(average_precision_score(y_test, proba), 4))
+    print("Accuracy:", round(accuracy_score(y_test, pred), 4))
+    print("Balanced accuracy:", round(balanced_accuracy_score(y_test, pred), 4))
+    print("Precision:", round(precision_score(y_test, pred, zero_division=0), 4))
+    print("Recall:", round(recall_score(y_test, pred, zero_division=0), 4))
+    print("F1:", round(f1_score(y_test, pred, zero_division=0), 4))
+    print("Confusion matrix:\n", confusion_matrix(y_test, pred))
+for name, model in models.items():
+    eval_model(name, model)
+```
+**Test Data Analysis (Results).** We trained/evaluated models on **62,090** matches with valid odds. The upset rate was **0.3459** and an 80/20 stratified split preserved this rate in both train and test sets.
+
+As a baseline, always predicting “no upset” achieved **Accuracy = 0.6541** but **Balanced Accuracy = 0.5000** and **F1 = 0.0000**, since it never identifies any upsets (confusion matrix [[8123, 0], [4295, 0]]). This highlights why accuracy alone is not a good metric for this problem.
+
+**Logistic Regression** performed best overall for identifying upsets, with **ROC-AUC = 0.7186** and **PR-AUC = 0.5564**. At a 0.5 threshold it achieved **Precision = 0.5072**, **Recall = 0.6421**, and the highest **F1 = 0.5667** (confusion matrix [[5443, 2680], [1537, 2758]]). This model catches many upsets (high recall) but produces more false upset predictions.
+
+**Random Forest** achieved slightly higher accuracy (**0.6655**) but lower ranking performance (**ROC-AUC = 0.7064**, **PR-AUC = 0.5431**) and a slightly lower **F1 = 0.5440**. It is more conservative than Logistic Regression (lower recall), producing fewer predicted upsets overall (confusion matrix [[5786, 2337], [1817, 2478]]).
+
+**Gradient Boosting** achieved the highest **Accuracy = 0.6945** and the best **PR-AUC = 0.5580** with strong **Precision = 0.6018**, but it had much lower **Recall = 0.3448** and **F1 = 0.4384** (confusion matrix [[7143, 980], [2814, 1481]]). This indicates it predicts upsets less often (fewer false positives) but misses many true upsets.
+
+**Conclusion.** If the goal is to **detect upsets** (not just maximize accuracy), **Logistic Regression** provides the best balance of precision/recall and the strongest F1 score. If the goal is to make **fewer upset predictions with higher confidence**, **Gradient Boosting** is preferable due to its higher precision.
+
 ## 6. Visualizations
 
 ## 7. Conclusions
