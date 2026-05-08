@@ -8,6 +8,7 @@
     - Dataset was found by Darek Yu. Rest of the team agreed on utilizing the dataset.  
 **C (Data Exploration and Summary Statistics).**     
     - First Data Exploration on Court Surface v.s. Upset Rate was done by Darek Yu.  
+    - Second Data Exploration was done by Dhruv Das. 
     - Third Data Exploration was done by Alexander Cui.  
 **D (ML Algorithm Design/Development).**  
     - Feature Engineering and the new columns generated was done by Darek Yu.  
@@ -16,7 +17,7 @@
     
 **F (Visualization, Result Analysis, Conclusion).**  
 **G (Final Tutorial Report Creation).**  
-    - Alexander Cui wrote the Introduction and Data Curation portions of this assignment. 
+    - Alexander Cui wrote the Introduction and Data Curation portions of this assignment.  
     - Website is hosted and was formatted by Darek Yu.
 
 ## 2. Introduction
