@@ -17,9 +17,10 @@
     
 **F (Visualization, Result Analysis, Conclusion).**  
     - Visualization was done by Dhruv Das.
+    
 **G (Final Tutorial Report Creation).**  
     - Alexander Cui wrote the Introduction and Data Curation portions of this assignment.  
-    - Website is hosted and was formatted by Darek Yu.
+    - Website is hosted and was formatted by Darek Yu.   
     - Dhruv Das did the second Data Exploration regarding the outliers in the rankings and the Visualization.
 
 ## 2. Introduction
