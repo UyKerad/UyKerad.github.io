@@ -8,6 +8,7 @@
     - Dataset was found by Darek Yu. Rest of the team agreed on utilizing the dataset.  
 **C (Data Exploration and Summary Statistics).**     
     - First Data Exploration on Court Surface v.s. Upset Rate was done by Darek Yu.  
+    - Third Data Exploration was done by Alexander Cui.
 **D (ML Algorithm Design/Development).**  
     - Feature Engineering and the new columns generated was done by Darek Yu.  
 **E (ML Algorithm Training and Test Data Analysis).**    
@@ -15,6 +16,7 @@
     
 **F (Visualization, Result Analysis, Conclusion).**  
 **G (Final Tutorial Report Creation).**  
+    - Alexander Cui wrote the Introduction and Data Curation portions of this assignment. 
 
 ## 2. Introduction
 Professional tennis is a highly dynamic sport where match outcomes are influenced by a multitude of complex variables. While the ATP (Association of Tennis Professionals) ranking system provides a reliable metric of long-term player consistency, upsets, a scenario where a statistically inferior player defeats a higher-ranked opponent, do occur. This project uses a dataset of over 60,000 ATP tennis matches to build a machine learning classification model that predicts the likelihood of these ranking-based upsets. By integrating ranking differences, playing surface, match round (within a tournament), betting odds, and match format, this analysis seeks to uncover the statistics behind upsets.
