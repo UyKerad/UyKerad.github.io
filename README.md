@@ -7,7 +7,7 @@
 **B (Dataset Curation and Preprocessing).**  
     - Dataset was found by Darek Yu. Rest of the team agreed on utilizing the dataset.  
 **C (Data Exploration and Summary Statistics).**     
-    - First Data Exploration on Court Surface v.s. Upset Rate was done by Darek Yu.  
+    - First Data Exploration on Court Surface v.s. Upset Rate was done by Darek Yu.   
     - Second Data Exploration was done by Dhruv Das. 
     - Third Data Exploration was done by Alexander Cui.  
 **D (ML Algorithm Design/Development).**  
