@@ -17,7 +17,7 @@
     - Model training, testing (Logistic Regression, Random Forest, Gradient Boosting) was done by Vineeth Movva.  
 **F (Visualization, Result Analysis, Conclusion).**  
     - Model evaluation and grouped bar chart were done by Alex Luo  
-    - Feature important plot was done by Dhruv Das.  
+    - Feature importance plot was done by Dhruv Das.  
 **G (Final Tutorial Report Creation).**  
     - Alexander Cui wrote the Introduction and Data Curation portions of this assignment.  
     - Website is hosted and was formatted by Darek Yu.   
@@ -30,7 +30,7 @@ We aim to answer the following question: What are the most significant pre-match
 This analysis bridges sports analytics and practical data science. In tennis, predicting upsets reveals factors that rankings may miss. It can help us understand how robust and accurate the betting market for tennis is.  
 
 ## 3. Data Curation
-We are using a dataset from Kaggle which contains over 60,000 matches from ATP tennis matches. ATP is the top tier tour for professional men’s tennis, so the dataset is looking at the best players in the world. This means the ranking system is highly structured and updated consistently, so the ranking variable is more statistically reliable and interpretable. Furthermore, ATP players are all elite professionals, so there will be less random variance in performance, which means the effects of variables such as court surface and match round will have a higher relative importance. The dataset contains tournament name, type, location, the data and match round, whether it was indoor/outdoor, the surface type, the player names, ranking, and winner, odds for each player, as well as the score and match format.
+We are using a dataset from Kaggle (https://www.kaggle.com/code/jockeroika/atp-tennis-dataset-2000-2025) which contains over 60,000 matches from ATP tennis matches. ATP is the top tier tour for professional men’s tennis, so the dataset is looking at the best players in the world. This means the ranking system is highly structured and updated consistently, so the ranking variable is more statistically reliable and interpretable. Furthermore, ATP players are all elite professionals, so there will be less random variance in performance, which means the effects of variables such as court surface and match round will have a higher relative importance. The dataset contains tournament name, type, location, the data and match round, whether it was indoor/outdoor, the surface type, the player names, ranking, and winner, odds for each player, as well as the score and match format.
 
 ### 3.1 Loading Data and Preprocessing
 ```
