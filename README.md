@@ -376,8 +376,6 @@ for name, model in models.items():
     eval_model(name, model)
 ```
 
-
-## 6. Visualizations
 ```
 # axes names
 results_df = pd.DataFrame(results).T
@@ -419,6 +417,7 @@ Depending on the use case, logistic regression and gradient boosting are both so
 
 **NEED GRAPH FINDING FEATURE IMPORTANCE!!!!!!!!!!!!!!!!!!!!!!**
 
+## 6. Visualization
 ```python
 import matplotlib.pyplot as plt
 import pandas as pd
