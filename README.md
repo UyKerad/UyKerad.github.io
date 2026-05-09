@@ -18,7 +18,7 @@
 **F (Visualization, Result Analysis, Conclusion).**  
     - Model evaluation and grouped bar chart were done by Alex Luo  
     - Feature importance plot was done by Dhruv Das.  
-    - Conclusion was written by Darek Yu and Vincent DePasquale.
+    - Conclusion was written by Darek Yu and Vincent DePasquale.  
 **G (Final Tutorial Report Creation).**  
     - Alexander Cui wrote the Introduction and Data Curation portions of this assignment.  
     - Website is hosted and was formatted by Darek Yu.   
