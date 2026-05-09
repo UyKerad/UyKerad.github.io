@@ -18,6 +18,7 @@
 **F (Visualization, Result Analysis, Conclusion).**  
     - Model evaluation and grouped bar chart were done by Alex Luo  
     - Feature importance plot was done by Dhruv Das.  
+    - Conclusion was written by Darek Yu and Vincent DePasquale.
 **G (Final Tutorial Report Creation).**  
     - Alexander Cui wrote the Introduction and Data Curation portions of this assignment.  
     - Website is hosted and was formatted by Darek Yu.   
@@ -450,5 +451,10 @@ plt.show()
 
 
 From this graph we can infer that Surface, especially Hard court, is the most impactful factor on ATP upsets. Every other feature has a much lower, or even negative, influence on Upsets.
-## 7. Conclusions
 
+## 7. Conclusions and Takeaways
+### Conclusion
+The feature importance plot from Logistic Regression was the most revealing result. Hard court surface had the largest positive coefficient of any feature, meaning hard court matches are the most upset-prone environment, which was consistent with our chi-squared findings. The betting-implied probability of the favorite had the strongest negative coefficient, confirming that the betting market captures most of the upset signal but not all of it. Notably, raw ranking gap and match format had very minimal influence relative to the afformenioned features, suggesting that ATP rankings are a less accurate metric than betting odds for predicting individual match outcomes.
+
+### Takeaways
+A reader unfamiliar with tennis analytics should come away knowing that upsets in professional tennis are partially predictable, that the betting market is a strong but imperfect signal, and that hard courts are the surface most likely to produce surprises. A reader already familiar with ATP tennis might be surprised to learn just how dominant the surface and betting odds features are relative to raw ranking differences, while reliable over time, appear to be a blunter instrument than market pricing when it comes to individual match outcomes.
