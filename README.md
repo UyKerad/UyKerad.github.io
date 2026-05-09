@@ -438,7 +438,7 @@ feat_importance = pd.DataFrame({'Feature': feature_names, 'Importance': importan
 feat_importance = feat_importance.sort_values(by='Importance', ascending=False)
 
 plt.figure(figsize=(10, 6))
-sns.barplot(x='Importance', y='Feature', data=feat_importance, hue='Feature', palette="vlag", legend=False)
+sns.barplot(x='Importance', y='Feature', data=feat_importance, hue='Feature', palette="vlag", legend=True)
 plt.axvline(x=0, color='black', lw=1)
 plt.title('Most Significant Factors for ATP Upsets (Logistic Regression Coefficients)', fontsize=14)
 plt.xlabel('Coefficient Magnitude (Directional Influence)')
@@ -446,7 +446,8 @@ plt.ylabel('Match Variable')
 plt.grid(axis='x', linestyle='--', alpha=0.7)
 plt.show()
 ```
-<img width="944" height="548" alt="feature_importance" src="https://github.com/user-attachments/assets/a7a1cc66-3be3-4617-850f-73173b88a6bc" />
+<img width="944" height="548" alt="feature_importance" src="https://github.com/user-attachments/assets/ba5556e4-c725-4053-b57a-be17f6d6246f" />
+
 
 From this graph we can infer that Surface, especially Hard court, is the most impactful factor on ATP upsets. Every other feature has a much lower, or even negative, influence on Upsets.
 ## 7. Conclusions
