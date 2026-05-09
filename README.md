@@ -375,6 +375,7 @@ for name, model in models.items():
     eval_model(name, model)
 ```
 
+## 6. Visualization
 ```
 # axes names
 results_df = pd.DataFrame(results).T
@@ -402,7 +403,6 @@ ax.set_title("Model Comparisons for Tennis Upset Prediction")
 ax.legend(loc="upper right")
 plt.show()
 ```
-## 6. Visualization
 <img width="923" height="528" alt="image" src="https://github.com/user-attachments/assets/a663b33a-529f-4a1e-95b5-06a2e8e310b2" />
 
 For our baseline where we always predict no upset, we see Accuracy = 0.6541 but Balanced Accuracy = 0.5000 and F1 = 0.0000. F1 is 0 because it never identifies an upset (Recall = 0), and accuracy is of course, just 1 - the upset rate of 0.3459. We see that Accuracy is an unreliable metric for this dataset since it is unbalanced.
