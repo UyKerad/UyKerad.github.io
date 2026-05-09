@@ -7,18 +7,19 @@
 **B (Dataset Curation and Preprocessing).**  
     - Dataset was found by Darek Yu. Rest of the team agreed on utilizing the dataset.  
 **C (Data Exploration and Summary Statistics).**     
-    - First Data Exploration on Court Surface v.s. Upset Rate was done by Darek Yu.   
-    - Dhruv Das did the second Data Exploration regarding the outliers in the rankings and the Visualization.  
-    - Third Data Exploration was done by Alexander Cui. 
+    - First Data Exploration on Court Surface v.s. Upset Rate was done by Darek Yu.  
+    - Third Data Exploration was done by Alexander Cui.
+    - Dhruv Das did the second Data Exploration regarding the outliers in the rankings and the Visualization. 
     - Alex Luo worked on bug checking/correcting + conclusions for first and second data exploration.
-
 **D (ML Algorithm Design/Development).**  
     - Feature Engineering and the new columns generated was done by Darek Yu.  
 **E (ML Algorithm Training and Test Data Analysis).**    
-    - Model training, testing, and performance evaluation (Logistic Regression, Random Forest, Gradient Boosting) was done by Vineeth Movva.
+    - Model training, testing (Logistic Regression, Random Forest, Gradient Boosting) was done by Vineeth Movva.
     
-**F (Visualization, Result Analysis, Conclusion).**  
-    - Visualization was done by Dhruv Das.
+**F (Visualization, Result Analysis, Conclusion).** 
+    - Model evaluation and grouped bar chart were done by Alex Luo
+    - Feature important plot was done by Dhruv Das.
+    
     
 **G (Final Tutorial Report Creation).**  
     - Alexander Cui wrote the Introduction and Data Curation portions of this assignment.  
@@ -355,31 +356,68 @@ def eval_model(name, model):
     model.fit(X_train, y_train)
     proba = model.predict_proba(X_test)[:, 1]
     pred = (proba >= 0.5).astype(int)
+
+    # map metrics to their values for later use
+    results[name] = {
+        "ROC-AUC": round(roc_auc_score(y_test, proba), 4),
+        "PR-AUC": round(average_precision_score(y_test, proba), 4),
+        "F1": round(f1_score(y_test, pred, zero_division=0), 4),
+        "Balanced Acc": round(balanced_accuracy_score(y_test, pred), 4),
+        "Precision": round(precision_score(y_test, pred, zero_division=0), 4),
+        "Recall": round(recall_score(y_test, pred, zero_division=0), 4),
+        "Accuracy": round(accuracy_score(y_test, pred), 4),
+    }
+    
     print(f"\n{name}")
-    print("ROC-AUC:", round(roc_auc_score(y_test, proba), 4))
-    print("PR-AUC:", round(average_precision_score(y_test, proba), 4))
-    print("Accuracy:", round(accuracy_score(y_test, pred), 4))
-    print("Balanced accuracy:", round(balanced_accuracy_score(y_test, pred), 4))
-    print("Precision:", round(precision_score(y_test, pred, zero_division=0), 4))
-    print("Recall:", round(recall_score(y_test, pred, zero_division=0), 4))
-    print("F1:", round(f1_score(y_test, pred, zero_division=0), 4))
-    print("Confusion matrix:\n", confusion_matrix(y_test, pred))
+    for m, v in results[name].items():
+        print(f"{m}: {v}")
+
 for name, model in models.items():
     eval_model(name, model)
 ```
-**Test Data Analysis (Results).** We trained/evaluated models on **62,090** matches with valid odds. The upset rate was **0.3459** and an 80/20 stratified split preserved this rate in both train and test sets.
 
-As a baseline, always predicting “no upset” achieved **Accuracy = 0.6541** but **Balanced Accuracy = 0.5000** and **F1 = 0.0000**, since it never identifies any upsets (confusion matrix [[8123, 0], [4295, 0]]). This highlights why accuracy alone is not a good metric for this problem.
-
-**Logistic Regression** performed best overall for identifying upsets, with **ROC-AUC = 0.7186** and **PR-AUC = 0.5564**. At a 0.5 threshold it achieved **Precision = 0.5072**, **Recall = 0.6421**, and the highest **F1 = 0.5667** (confusion matrix [[5443, 2680], [1537, 2758]]). This model catches many upsets (high recall) but produces more false upset predictions.
-
-**Random Forest** achieved slightly higher accuracy (**0.6655**) but lower ranking performance (**ROC-AUC = 0.7064**, **PR-AUC = 0.5431**) and a slightly lower **F1 = 0.5440**. It is more conservative than Logistic Regression (lower recall), producing fewer predicted upsets overall (confusion matrix [[5786, 2337], [1817, 2478]]).
-
-**Gradient Boosting** achieved the highest **Accuracy = 0.6945** and the best **PR-AUC = 0.5580** with strong **Precision = 0.6018**, but it had much lower **Recall = 0.3448** and **F1 = 0.4384** (confusion matrix [[7143, 980], [2814, 1481]]). This indicates it predicts upsets less often (fewer false positives) but misses many true upsets.
-
-**Conclusion.** If the goal is to **detect upsets** (not just maximize accuracy), **Logistic Regression** provides the best balance of precision/recall and the strongest F1 score. If the goal is to make **fewer upset predictions with higher confidence**, **Gradient Boosting** is preferable due to its higher precision.
 
 ## 6. Visualizations
+```
+# axes names
+results_df = pd.DataFrame(results).T
+metrics = results_df.columns.tolist()
+model_names = results_df.index.tolist()
+
+#set up plot metadata
+x = np.arange(len(metrics))
+colors = ["red", "green", "blue"]
+width = 0.25
+fig, ax = plt.subplots(figsize=(11, 6))
+
+# create sick grouped bar chart
+for i, name in enumerate(model_names):
+    offset = (i - 1) * width
+    bars = ax.bar(x + offset, results_df.loc[name], width, label=name, color=colors[i])
+    for bar in bars:
+        ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.005, f"{bar.get_height():.4f}", ha="center", va="bottom", fontsize=6)
+
+ax.set_xticks(x)
+ax.set_xticklabels(metrics)
+ax.set_ylabel("Score")
+ax.set_ylim(0, 1.0)
+ax.set_title("Model Comparisons for Tennis Upset Prediction")
+ax.legend(loc="upper right")
+plt.show()
+```
+<img width="923" height="528" alt="image" src="https://github.com/user-attachments/assets/a663b33a-529f-4a1e-95b5-06a2e8e310b2" />
+
+For our baseline where we always predict no upset, we see Accuracy = 0.6541 but Balanced Accuracy = 0.5000 and F1 = 0.0000. F1 is 0 because it never identifies an upset (Recall = 0), and accuracy is of course, just 1 - the upset rate of 0.3459. We see that Accuracy is an unreliable metric for this dataset since it is unbalanced.
+
+Logistic Regression showed the strongest overall performance. It tied for the highest ROC-AUC (0.7186), scored the best Balanced Accuracy = 0.6561, F1 = 0.5667, and Recall = 0.6421. However, its Precision is the lowest at 0.5072.
+
+Random Forest performed between the other two models. It had slightly higher accuracy (0.6655) than Logistic Regression but performed worse in ROC-AUC = 0.7064, PR-AUC = 0.5431 and  F1 = 0.5440. It's more conservative than Logistic Regression fewer predicted upsets, with lower Recall = 0.5769, but no corresponding gain in Precision = 0.5146.
+
+Gradient Boosting showed the most extreme tradeoff of all of these models, having the highest Accuracy = 0.6945, PR-AUC = 0.5580, and Precision = 0.6018. However, it has by far the lowest Recall = 0.3448 and lowest F1 = 0.4384. This overall means that it has high confidence but behaves very conservatively.
+
+Depending on the use case, logistic regression and gradient boosting are both solid contenders. For example, if you are using the model to place bets, you want to have high precision and don't really care about recall, making gradient boosting the best choice. For our purposes, we will choose logistic regression since it has the best balance of precision and recall, and, more importantly, the coefficients directly concern themselves with our question of with features are most important for predicting upsets.
+
+**NEED GRAPH FINDING FEATURE IMPORTANCE!!!!!!!!!!!!!!!!!!!!!!**
 
 ```python
 import matplotlib.pyplot as plt
