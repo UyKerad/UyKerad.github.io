@@ -415,8 +415,6 @@ Gradient Boosting showed the most extreme tradeoff of all of these models, havin
 
 Depending on the use case, logistic regression and gradient boosting are both solid contenders. For example, if you are using the model to place bets, you want to have high precision and don't really care about recall, making gradient boosting the best choice. For our purposes, we will choose logistic regression since it has the best balance of precision and recall, and, more importantly, the coefficients directly concern themselves with our question of with features are most important for predicting upsets.
 
-**NEED GRAPH FINDING FEATURE IMPORTANCE!!!!!!!!!!!!!!!!!!!!!!**
-
 ```python
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -441,6 +439,6 @@ plt.show()
 ```
 <img width="944" height="548" alt="feature_importance" src="https://github.com/user-attachments/assets/a7a1cc66-3be3-4617-850f-73173b88a6bc" />
 
-
+From this graph we can infer that Surface, especially Hard court, is the most impactful factor on ATP upsets. Every other feature has a much lower, or even negative, influence on Upsets.
 ## 7. Conclusions
 
