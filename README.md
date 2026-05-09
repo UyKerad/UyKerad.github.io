@@ -3,13 +3,13 @@
 
 ## 1. Contributions
 **A (Project idea).**  
-    - Final project idea on using Random Forest was brainstormed by Alexander Cui. Rest of the team agreed on the idea.   
+    - Final project idea on using Random Forest was brainstormed by Alexander Cui. Rest of the team agreed and expanded on the idea.   
 **B (Dataset Curation and Preprocessing).**  
     - Dataset was found by Darek Yu. Rest of the team agreed on utilizing the dataset.  
 **C (Data Exploration and Summary Statistics).**     
     - First Data Exploration on Court Surface v.s. Upset Rate was done by Darek Yu.  
-    - Third Data Exploration was done by Alexander Cui.
-    - Dhruv Das did the second Data Exploration regarding the outliers in the rankings and the Visualization. 
+    - Third Data Exploration was done by Alexander Cui.  
+    - Dhruv Das did the second Data Exploration regarding the outliers in the rankings and the Visualization.   
     - Alex Luo worked on bug checking/correcting + conclusions for first and second data exploration.
 **D (ML Algorithm Design/Development).**  
     - Feature Engineering and the new columns generated was done by Darek Yu.  
@@ -19,7 +19,6 @@
 **F (Visualization, Result Analysis, Conclusion).** 
     - Model evaluation and grouped bar chart were done by Alex Luo
     - Feature important plot was done by Dhruv Das.
-    
     
 **G (Final Tutorial Report Creation).**  
     - Alexander Cui wrote the Introduction and Data Curation portions of this assignment.  
