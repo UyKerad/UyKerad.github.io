@@ -98,6 +98,9 @@ print(valid['upset'].value_counts())
 
 ## 4. Exploratory Data Analysis
 ### 4.1 Does Court Surface Affect Upset Rate? (Chi-Squared Test)
+Question: Does the court surface affect upset rate?
+Null Hypothesis (H0): The court surface does not affect the upset rate.
+Alternative Hypothesis: The court surface does affect the upset rate.
 
 ```
 contingency = pd.crosstab(valid["Surface"], valid["upset"])
@@ -132,8 +135,12 @@ plt.savefig("upset_by_surface.png", dpi=150)
 plt.show()
 ```
 <img width="888" height="544" alt="82266bcd76e1bd9d3584bc0338300c95" src="https://github.com/user-attachments/assets/f1324fc6-9dda-40dc-88bc-557b2c8b6110" />
+Conclusion: Since p-value < 0.05, we reject the null hypothesis and conclude that court surface does have an affect on upset rate.
 
 ### 4.2 Does Court Type (Indoor/Outdoor) Affect Match Length? (T-Test)
+Question: Does court type (indoor/outdoor) affect the average total games played per match in best-of-3 matches?
+Null Hypothesis (H0): The court type does not affect the average total games played per match in best-of-3 matches.
+Alternative Hypothesis: The court type does affect the average total games played per match in best-of-3 matches.
 
 ```
 # keep only relevant columns
@@ -216,8 +223,11 @@ plt.ylabel("Total Games")
 plt.show()
 ```
 <img width="772" height="531" alt="4acf2a74432d38c950b3ef84e5e343f6" src="https://github.com/user-attachments/assets/a19d2c32-f242-4d71-adf0-67c79ad56cf0" />
+Conclusion: Since p-value < 0.05, we reject the null hypothesis and conclude that court type does affect the average total games played per match in best-of-3 matches.
 
 ### 4.3 Are there outliers in the rankings of people who defeat top-10 players? In other words, what are the biggest upsets?
+Question: Are there outliers in the rankings of people who defeat top-10 players? In other words, what are the biggest upsets?
+
 ```
 #filter to matches where top 10 players played and lost
 top_10_losses=valid[((valid['Rank_1']<=10)&(valid['Winner']==valid['Player_2']))|((valid['Rank_2']<= 10)&(valid['Winner']==valid['Player_1']))].copy()
@@ -249,6 +259,7 @@ plt.ylabel("Top 10 Losses")
 plt.show()
 ```
 <img width="1219" height="624" alt="ace5dbc099069447e55685d49b2e0277" src="https://github.com/user-attachments/assets/2e19a3a8-e913-46df-b8db-e0b584a974ae" />
+Conclusion: There are 177 outliers in the rankings of people who defeated top 10 players, as listed above. The biggest outlier/upset was 826 ranked Chela defeating 7 ranked Grosjean.
 
 ## 5. Primary Analysis
 ### 5.1 Motivation
