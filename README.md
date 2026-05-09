@@ -9,6 +9,7 @@
 **C (Data Exploration and Summary Statistics).**     
     - First Data Exploration on Court Surface v.s. Upset Rate was done by Darek Yu.  
     - Third Data Exploration was done by Alexander Cui.
+    - Dhruv Das did the second Data Exploration regarding the outliers in the rankings and the Visualization. 
     - Alex Luo worked on bug checking/correcting + conclusions for first and second data exploration.
 **D (ML Algorithm Design/Development).**  
     - Feature Engineering and the new columns generated was done by Darek Yu.  
@@ -17,8 +18,12 @@
     
 **F (Visualization, Result Analysis, Conclusion).** 
     - Model evaluation and grouped bar chart were done by Alex Luo
+    - Feature important plot was done by Dhruv Das.
+    
+    
 **G (Final Tutorial Report Creation).**  
-    - Alexander Cui wrote the Introduction and Data Curation portions of this assignment. 
+    - Alexander Cui wrote the Introduction and Data Curation portions of this assignment.  
+    - Website is hosted and was formatted by Darek Yu.   
 
 ## 2. Introduction
 Professional tennis is a highly dynamic sport where match outcomes are influenced by a multitude of complex variables. While the ATP (Association of Tennis Professionals) ranking system provides a reliable metric of long-term player consistency, upsets, a scenario where a statistically inferior player defeats a higher-ranked opponent, do occur. This project uses a dataset of over 60,000 ATP tennis matches to build a machine learning classification model that predicts the likelihood of these ranking-based upsets. By integrating ranking differences, playing surface, match round (within a tournament), betting odds, and match format, this analysis seeks to uncover the statistics behind upsets.
@@ -413,6 +418,31 @@ Gradient Boosting showed the most extreme tradeoff of all of these models, havin
 Depending on the use case, logistic regression and gradient boosting are both solid contenders. For example, if you are using the model to place bets, you want to have high precision and don't really care about recall, making gradient boosting the best choice. For our purposes, we will choose logistic regression since it has the best balance of precision and recall, and, more importantly, the coefficients directly concern themselves with our question of with features are most important for predicting upsets.
 
 **NEED GRAPH FINDING FEATURE IMPORTANCE!!!!!!!!!!!!!!!!!!!!!!**
+
+```python
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+
+lr_model = models["Logistic Regression"].named_steps['clf']
+feature_names = X.columns
+
+importance = lr_model.coef_[0]
+
+feat_importance = pd.DataFrame({'Feature': feature_names, 'Importance': importance})
+feat_importance = feat_importance.sort_values(by='Importance', ascending=False)
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x='Importance', y='Feature', data=feat_importance, hue='Feature', palette="vlag", legend=False)
+plt.axvline(x=0, color='black', lw=1)
+plt.title('Most Significant Factors for ATP Upsets (Logistic Regression Coefficients)', fontsize=14)
+plt.xlabel('Coefficient Magnitude (Directional Influence)')
+plt.ylabel('Match Variable')
+plt.grid(axis='x', linestyle='--', alpha=0.7)
+plt.show()
+```
+<img width="944" height="548" alt="feature_importance" src="https://github.com/user-attachments/assets/a7a1cc66-3be3-4617-850f-73173b88a6bc" />
+
 
 ## 7. Conclusions
 
