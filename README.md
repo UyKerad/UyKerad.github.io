@@ -14,12 +14,10 @@
 **D (ML Algorithm Design/Development).**  
     - Feature Engineering and the new columns generated was done by Darek Yu.  
 **E (ML Algorithm Training and Test Data Analysis).**    
-    - Model training, testing (Logistic Regression, Random Forest, Gradient Boosting) was done by Vineeth Movva.
-    
-**F (Visualization, Result Analysis, Conclusion).** 
-    - Model evaluation and grouped bar chart were done by Alex Luo
-    - Feature important plot was done by Dhruv Das.
-    
+    - Model training, testing (Logistic Regression, Random Forest, Gradient Boosting) was done by Vineeth Movva.  
+**F (Visualization, Result Analysis, Conclusion).**  
+    - Model evaluation and grouped bar chart were done by Alex Luo  
+    - Feature important plot was done by Dhruv Das.  
 **G (Final Tutorial Report Creation).**  
     - Alexander Cui wrote the Introduction and Data Curation portions of this assignment.  
     - Website is hosted and was formatted by Darek Yu.   
