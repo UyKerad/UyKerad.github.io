@@ -384,6 +384,53 @@ def eval_model(name, model):
 for name, model in models.items():
     eval_model(name, model)
 ```
+```
+Train upset rate: 0.3459 Test upset rate: 0.3459
+
+Baseline (always predict no upset)
+Accuracy: 0.6541
+Balanced accuracy: 0.5
+F1: 0.0
+Confusion matrix:
+ [[8123    0]
+ [4295    0]]
+
+Logistic Regression
+ROC-AUC: 0.7186
+PR-AUC: 0.5564
+Accuracy: 0.6604
+Balanced accuracy: 0.6561
+Precision: 0.5072
+Recall: 0.6421
+F1: 0.5667
+Confusion matrix:
+ [[5443 2680]
+ [1537 2758]]
+
+Random Forest
+ROC-AUC: 0.7064
+PR-AUC: 0.5431
+Accuracy: 0.6655
+Balanced accuracy: 0.6446
+Precision: 0.5146
+Recall: 0.5769
+F1: 0.544
+Confusion matrix:
+ [[5786 2337]
+ [1817 2478]]
+
+Gradient Boosting
+ROC-AUC: 0.7178
+PR-AUC: 0.558
+Accuracy: 0.6945
+Balanced accuracy: 0.6121
+Precision: 0.6018
+Recall: 0.3448
+F1: 0.4384
+Confusion matrix:
+ [[7143  980]
+ [2814 1481]]
+```
 
 ## 6. Visualization
 ```
