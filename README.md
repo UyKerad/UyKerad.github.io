@@ -384,6 +384,7 @@ def eval_model(name, model):
 for name, model in models.items():
     eval_model(name, model)
 ```
+Model Outputs after Training: 
 ```
 Train upset rate: 0.3459 Test upset rate: 0.3459
 
